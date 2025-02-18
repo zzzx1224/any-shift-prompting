@@ -6,7 +6,7 @@ This repository provides the official PyTorch implementation of our CVPR 2024 pa
 > 
 > Zehao Xiao, Jiayi Shen, Mohammad Mahdi Derakhshani, Shengcai Liao, Cees G. M. Snoek
 
-For more dtails, please check out our [<ins>**paper**</ins>](https://arxiv.org/abs/2402.10099). 
+For more details, please check out our [<ins>**paper**</ins>](https://arxiv.org/abs/2402.10099). 
 
 ## Overview
 This repository contains the implementation of Any-Shift Prompting for domain generalization tasks with a pre-trained CLIP.
@@ -15,7 +15,7 @@ This repository contains the implementation of Any-Shift Prompting for domain ge
 
 ### Hardware
 
-This implementation is for the single-GPU configuration, evaluated on a single A6000. 
+This implementation is for the single GPU configuration, evaluated on a single A6000. 
 
 ### Environments 
 The code is tested on PyTorch 1.13.1. 

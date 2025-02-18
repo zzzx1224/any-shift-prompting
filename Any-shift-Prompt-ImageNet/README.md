@@ -6,7 +6,7 @@ This repository provides the official PyTorch implementation of our CVPR 2024 pa
 > 
 > Zehao Xiao, Jiayi Shen, Mohammad Mahdi Derakhshani, Shengcai Liao, Cees G. M. Snoek
 
-For more dtails, please check out our [<ins>**paper**</ins>](https://arxiv.org/abs/2402.10099). 
+For more details, please check out our [<ins>**paper**</ins>](https://arxiv.org/abs/2402.10099). 
 
 ## Overview
 This repository contains the implementation of Any-Shift Prompting for domain generalization tasks with a pre-trained CLIP.
@@ -15,7 +15,7 @@ This repository contains the implementation of Any-Shift Prompting for domain ge
 
 ### Hardware
 
-This implementation is for the single-GPU configuration, evaluated on a single A6000. 
+This implementation is for the single GPU configuration, evaluated on a single A6000. 
 
 ### Environments 
 The code is tested on PyTorch 1.13.1. 
@@ -52,7 +52,7 @@ We follow the conditional shifts setting in [BREEDS](https://arxiv.org/pdf/2008.
 The dataset codes are provided by ```get_breeds``` function in [```dataset.py```](https://github.com/zzzx1224/any-shift-prompting/blob/main/Any-shift-Prompt-DG/dataset.py) file.
 
 #### Concept shifts
-We simulate the concept shifts by using ImageNet with hyperclasses. Codes are provided in [```imagenetcon.py```]() file.
+We simulate the concept shifts by using ImageNet with hyperclasses. Codes are provided in [```imagenetcon.py```](https://github.com/zzzx1224/any-shift-prompting/blob/main/Any-shift-Prompt-ImageNet/datasets/imagenetcon.py) file.
 
 ## Training
 

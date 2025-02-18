@@ -116,17 +116,11 @@ class PACS(Dataset):
 		assert len(self.img_list)==len(self.label_list)
 
 	def __getitem__(self, item):
-		# image
 		image = Image.open(self.img_list[item]).convert('RGB')  # (C, H, W)
-		# image = image.resize((224, 224))
-		# image = cv2.imread(self.img_list[item])[::-1]
-		# pdb.set_trace()
 		if self.transform is not None:
 			image = self.transform(image)
 
 		label = self.label_list[item]
-		# return image and label
-		# return image, self.label_list[item]
 		return image, label
 
 	def __len__(self):
@@ -145,12 +139,10 @@ class randPACS(Dataset):
 
 		# self.num_imgs = []
 		for i in range(len(self.domain_list)):
-			# f = open('../files/random_group_' + test_domain + '_' + str(i) +'.txt', 'r')
 			f = open('../files/cluster_z2_' + test_domain + '_' + str(i) +'.txt', 'r')
 			lines = f.readlines()
 			train_domain_imgs = []
 			train_domain_labels = []
-			# domain_imgs = {}
 			for line in lines:
 				[img, label] = line.strip('\n').split(' ')
 				train_domain_imgs.append(data_path + img)
@@ -158,21 +150,15 @@ class randPACS(Dataset):
 				train_domain_labels.append(int(label))
 			self.train_img_list.append(train_domain_imgs)
 			self.train_label_list.append(train_domain_labels)
-			# self.num_imgs.append(len(train_domain_imgs))
-		# pdb.set_trace()
 
 		self.val_img_list = []
 		self.val_label_list = []
 		self.test_img_list = []
 		self.test_label_list = []
-		# self.transform = transform
-		# self.meta_test_domain = np.random.randint(len(self.domain_list))
 
 		seed = 777
 
-		# elif phase == 'val':
 		self.domain_list.append(test_domain)
-		# pdb.set_trace()
 		for i in range(len(self.domain_list)):
 			f = open('../files/' + self.domain_list[i] + '_crossval_kfold.txt', 'r')
 			lines = f.readlines()
@@ -182,8 +168,6 @@ class randPACS(Dataset):
 
 			for line in lines:
 				[img, label] = line.strip('\n').split(' ')
-				# self.val_img_list.append(data_path + img)
-				# self.val_label_list.append(int(label)-1)
 				val_domain_imgs.append(data_path + img)
 				val_domain_labels.append(int(label)-1)
 			np.random.seed(seed)
@@ -195,7 +179,6 @@ class randPACS(Dataset):
 		self.domain_list.remove(test_domain)
 
 
-		# else:
 		f = open('../files/' + test_domain + '_test_kfold.txt', 'r')
 		lines = f.readlines()
 		for line in lines:
@@ -203,17 +186,12 @@ class randPACS(Dataset):
 			self.test_img_list.append(data_path + img)
 			self.test_label_list.append(int(label)-1)
 
-		# seed = 777
-		# pdb.set_trace()
 		np.random.seed(seed)
 		np.random.shuffle(self.test_img_list)
 		np.random.seed(seed)
 		np.random.shuffle(self.test_label_list)
 
-		# pdb.set_trace()
-
 	def reset(self, phase, domain_id, transform=None):
-		# pdb.set_trace()
 		self.phase = phase
 		if phase == 'train':
 			self.transform = transform
@@ -231,21 +209,14 @@ class randPACS(Dataset):
 			self.img_list = self.test_img_list
 			self.label_list = self.test_label_list
 
-		# pdb.set_trace()
 		assert len(self.img_list)==len(self.label_list)
 
 	def __getitem__(self, item):
-		# image
 		image = Image.open(self.img_list[item]).convert('RGB')  # (C, H, W)
-		# image = image.resize((224, 224))
-		# image = cv2.imread(self.img_list[item])[::-1]
-		# pdb.set_trace()
 		if self.transform is not None:
 			image = self.transform(image)
 
 		label = self.label_list[item]
-		# return image and label
-		# return image, self.label_list[item]
 		return image, label
 
 	def __len__(self):
@@ -276,19 +247,14 @@ class OfficeHome(Dataset):
 				train_domain_labels.append(int(label))
 			self.train_img_list.append(train_domain_imgs)
 			self.train_label_list.append(train_domain_labels)
-			# self.num_imgs.append(len(train_domain_imgs))
-		# pdb.set_trace()
 
 		self.val_img_list = []
 		self.val_label_list = []
 		self.test_img_list = []
 		self.test_label_list = []
-		# self.transform = transform
-		# self.meta_test_domain = np.random.randint(len(self.domain_list))
 
 		seed = 777
 
-		# else:
 		f = open('../office-home_files/' + test_domain + '_train.txt', 'r')
 		lines = f.readlines()
 		for line in lines:
@@ -296,14 +262,11 @@ class OfficeHome(Dataset):
 			self.test_img_list.append(img)
 			self.test_label_list.append(int(label))
 
-		# seed = 777
-		# pdb.set_trace()
 		np.random.seed(seed)
 		np.random.shuffle(self.test_img_list)
 		np.random.seed(seed)
 		np.random.shuffle(self.test_label_list)
 
-		# pdb.set_trace()
 
 	def reset(self, phase, domain_id, transform=None):
 		# pdb.set_trace()
@@ -328,17 +291,14 @@ class OfficeHome(Dataset):
 		assert len(self.img_list)==len(self.label_list)
 
 	def __getitem__(self, item):
-		# image
 		image = Image.open(self.img_list[item]).convert('RGB')  # (C, H, W)
 		image = image.resize((224, 224))
-		# image = cv2.imread(self.img_list[item])[::-1]
-		# pdb.set_trace()
+
 		if self.transform is not None:
 			image = self.transform(image)
 
 		label = self.label_list[item]
-		# return image and label
-		# return image, self.label_list[item]
+
 		return image, label
 
 	def __len__(self):
@@ -369,21 +329,15 @@ class VLCS(Dataset):
 				train_domain_labels.append(int(label)-1)
 			self.train_img_list.append(train_domain_imgs)
 			self.train_label_list.append(train_domain_labels)
-			# self.num_imgs.append(len(train_domain_imgs))
-		# pdb.set_trace()
 
 		self.val_img_list = []
 		self.val_label_list = []
 		self.test_img_list = []
 		self.test_label_list = []
-		# self.transform = transform
-		# self.meta_test_domain = np.random.randint(len(self.domain_list))
 
 		seed = 777
 
-		# elif phase == 'val':
 		self.domain_list.append(test_domain)
-		# pdb.set_trace()
 		for i in range(len(self.domain_list)):
 			f = open('../vlcs_files/' + self.domain_list[i] + '_crossval.txt', 'r')
 			lines = f.readlines()
@@ -393,8 +347,6 @@ class VLCS(Dataset):
 
 			for line in lines:
 				[img, label] = line.strip('\n').split(' ')
-				# self.val_img_list.append(data_path + img)
-				# self.val_label_list.append(int(label)-1)
 				val_domain_imgs.append(data_path + img)
 				val_domain_labels.append(int(label)-1)
 			np.random.seed(seed)
@@ -414,8 +366,6 @@ class VLCS(Dataset):
 			self.test_img_list.append(data_path + img)
 			self.test_label_list.append(int(label)-1)
 
-		# seed = 777
-		# pdb.set_trace()
 		np.random.seed(seed)
 		np.random.shuffle(self.test_img_list)
 		np.random.seed(seed)
@@ -446,17 +396,12 @@ class VLCS(Dataset):
 		assert len(self.img_list)==len(self.label_list)
 
 	def __getitem__(self, item):
-		# image
 		image = Image.open(self.img_list[item]).convert('RGB')  # (C, H, W)
-		# image = image.resize((224, 224))
-		# image = cv2.imread(self.img_list[item])[::-1]
-		# pdb.set_trace()
 		if self.transform is not None:
 			image = self.transform(image)
 
 		label = self.label_list[item]
-		# return image and label
-		# return image, self.label_list[item]
+
 		return image, label
 
 	def __len__(self):
@@ -490,34 +435,11 @@ class DomainNet(Dataset):
 				train_domain_labels.append(int(label))
 			self.train_img_list.append(train_domain_imgs)
 			self.train_label_list.append(train_domain_labels)
-			# self.num_imgs.append(len(train_domain_imgs))
-		# pdb.set_trace()
-
-		# for i in range(len(self.domain_list)):
-		# 	f = open('../domainnet/txtfiles/' + self.domain_list[i] + '_train.txt', 'r')
-		# 	lines = f.readlines()
-		# 	train_domain_imgs = {}
-		# 	# print(self.domain_list[i])
-		# 	for i in range(345):
-		# 		train_domain_imgs[i] = []
-		# 	# train_domain_labels = []
-		# 	# domain_imgs = {}
-		# 	for line in lines:
-		# 		[img, label] = line.strip('\n').split(' ')
-		# 		train_domain_imgs[int(label)].append(data_path + img)
-		# 		# train_domain_imgs.append(data_path + img)
-		# 		# train_domain_labels.append(int(label)-1)
-		# 	self.train_img_list.append(train_domain_imgs)
-		# 	# self.train_label_list.append(train_domain_labels)
-		# 	# self.num_imgs.append(len(train_domain_imgs))
-		# # pdb.set_trace()
 
 		self.val_img_list = []
 		self.val_label_list = []
 		self.test_img_list = []
 		self.test_label_list = []
-		# self.transform = transform
-		# self.meta_test_domain = np.random.randint(len(self.domain_list))
 
 		seed = 777
 
@@ -533,8 +455,6 @@ class DomainNet(Dataset):
 
 			for line in lines:
 				[img, label] = line.strip('\n').split(' ')
-				# self.val_img_list.append(data_path + img)
-				# self.val_label_list.append(int(label)-1)
 				val_domain_imgs.append(data_path + img)
 				val_domain_labels.append(int(label))
 			np.random.seed(seed)
@@ -571,14 +491,9 @@ class DomainNet(Dataset):
 			self.transform = transform
 			self.img_list = []
 			self.label_list = []
-			# for cate in categories:
-			# 	self.img_list += self.train_img_list[domain_id][cate]
-			# 	self.label_list += [cate] * len(self.train_img_list[domain_id][cate])
 
 			self.img_list = self.train_img_list[domain_id]
 			self.label_list = self.label_list = self.train_label_list[domain_id]
-			# self.label_list = self.train_label_list[domain_id]
-			# pdb.set_trace()
 
 		elif phase == 'val':
 			self.transform = transform
@@ -596,15 +511,10 @@ class DomainNet(Dataset):
 	def __getitem__(self, item):
 		# image
 		image = Image.open(self.img_list[item]).convert('RGB')  # (C, H, W)
-		# image = image.resize((224, 224))
-		# image = cv2.imread(self.img_list[item])[::-1]
-		# pdb.set_trace()
 		if self.transform is not None:
 			image = self.transform(image)
 
 		label = self.label_list[item]
-		# return image and label
-		# return image, self.label_list[item]
 		return image, label
 
 	def __len__(self):
@@ -613,10 +523,7 @@ class DomainNet(Dataset):
 
 class FashionMNIST(Dataset):
 	def __init__(self, train_domain, test_domain, transform=None):
-		# assert phase in ['train', 'val', 'test']
-		# self.domain_list = ['0', '15', '30', '45', '60', '75', '90']
-		# for te_dom in test_domain:
-		# 	self.domain_list.remove(te_dom)
+		
 		self.domain_list = train_domain
 
 		self.train_domain_imgs = []
@@ -662,10 +569,7 @@ class FashionMNIST(Dataset):
 		self.val_label_list = []
 		self.test_img_list = []
 		self.test_label_list = []
-		# self.transform = transform
-		# self.meta_test_domain = np.random.randint(len(self.domain_list))
 
-		# elif phase == 'val':
 		for i in range(len(self.domain_list)):
 			self.domain_imgs = []
 			self.domain_labels = []
@@ -709,12 +613,9 @@ class FashionMNIST(Dataset):
 		# pdb.set_trace()
 
 	def __getitem__(self, item):
-		# image
 		image = Image.open(self.img_list[item])#.convert('RGB')  # (C, H, W)
 		image = image.resize((28, 28))
-		# image = Image.open(self.img_list[item]).convert('RGB')  # (C, H, W)
-		# image = image.resize((224, 224))
-		# pdb.set_trace()
+
 		if self.transform is not None:
 			image = self.transform(image)
 
@@ -726,10 +627,6 @@ class FashionMNIST(Dataset):
 
 class MNIST(Dataset):
 	def __init__(self, train_domain, test_domain, transform=None):
-		# assert phase in ['train', 'val', 'test']
-		# self.domain_list = ['0', '15', '30', '45', '60', '75', '90']
-		# for te_dom in test_domain:
-		# 	self.domain_list.remove(te_dom)
 		self.domain_list = train_domain
 
 		self.train_domain_imgs = []
@@ -775,10 +672,7 @@ class MNIST(Dataset):
 		self.val_label_list = []
 		self.test_img_list = []
 		self.test_label_list = []
-		# self.transform = transform
-		# self.meta_test_domain = np.random.randint(len(self.domain_list))
 
-		# elif phase == 'val':
 		for i in range(len(self.domain_list)):
 			self.domain_imgs = []
 			self.domain_labels = []
@@ -822,16 +716,12 @@ class MNIST(Dataset):
 		# pdb.set_trace()
 
 	def __getitem__(self, item):
-		# image
 		image = Image.open(self.img_list[item])#.convert('RGB')  # (C, H, W)
 		image = image.resize((28, 28))
-		# image = Image.open(self.img_list[item]).convert('RGB')  # (C, H, W)
-		# image = image.resize((224, 224))
-		# pdb.set_trace()
+
 		if self.transform is not None:
 			image = self.transform(image)
 
-		# return image and label
 		return image, self.label_list[item]#, self.meta_train_imgs, self.meta_train_labels
 
 	def __len__(self):
@@ -840,7 +730,6 @@ class MNIST(Dataset):
 
 class SVHN(Dataset):
 	def __init__(self, train_domain, test_domain, transform=None):
-		# assert phase in ['train', 'val', 'test']
 		if train_domain == 'rand':
 			self.domain_list = ['0', '1', '2']
 			filename = 'random_group__'
@@ -892,32 +781,13 @@ class SVHN(Dataset):
 		self.val_label_list = []
 		self.test_img_list = []
 		self.test_label_list = []
-		# self.transform = transform
-		# self.meta_test_domain = np.random.randint(len(self.domain_list))
 
-		# elif phase == 'val':
-		# for i in range(len(self.domain_list)):
-		# 	self.domain_imgs = []
-		# 	self.domain_labels = []
-		# 	f = open('../mnist/' + '0_test_imgs.txt', 'r')
-		# 	lines = f.readlines()
-		# 	for line in lines:
-		# 		[img, label] = line.strip('\n').split(' ')
-		# 		self.domain_imgs.append(data_path + img)
-		# 		self.domain_labels.append(int(label))
-		# 	self.val_img_list.append(self.domain_imgs)
-		# 	self.val_label_list.append(self.domain_labels)
-
-
-		# else:
-		# for i in range(len(test_domain)):
 		f = open('../mnist/' + '0_test_imgs.txt', 'r')
 		lines = f.readlines()
 		for line in lines:
 			[img, label] = line.strip('\n').split(' ')
 			self.test_img_list.append(data_path + img)
 			self.test_label_list.append(int(label))
-		# pdb.set_trace()
 		self.val_img_list = self.test_img_list
 		self.val_label_list = self.test_label_list
 
@@ -942,15 +812,12 @@ class SVHN(Dataset):
 		# pdb.set_trace()
 
 	def __getitem__(self, item):
-		# image
 		image = Image.open(self.img_list[item]).convert('RGB')  # (C, H, W)
 		if self.phase=='train':
 			image = image.resize((32, 32))
 		else:
 			image = image.resize((28, 28))
-		# image = Image.open(self.img_list[item]).convert('RGB')  # (C, H, W)
-		# image = image.resize((224, 224))
-		# pdb.set_trace()
+
 		if self.transform is not None:
 			image = self.transform(image)
 
@@ -986,8 +853,6 @@ class Subset(Dataset):
 		self.transform = transform
 
 	def __getitem__(self, idx):
-		# logger.debug(f"IDx recieved {idx}")
-		# logger.debug(f"Indices type {type(self.indices[idx])} value {self.indices[idx]}")
 		x = self.dataset[self.indices[idx]]
 
 		if self.transform is not None:
@@ -1049,9 +914,6 @@ def get_breeds(
             label_mapping=source_label_mapping,
             transform=transforms,
         )
-		# logger.debug(
-        #     f"Size of source data; train {len(source_trainset)} and test {len(source_testset)}"
-        # )
 
 	if target:
 		if target_split == 0:
